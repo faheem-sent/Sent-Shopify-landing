@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-ground font-sans text-ink antialiased;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+
+  /* Never remove the focus ring — §10. */
+  :focus-visible {
+    outline: 2px solid theme('colors.accent.DEFAULT');
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  button,
+  input {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-6;
+  }
+
+  /* ---- type scale (§3) ---- */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[11px] font-medium uppercase text-ink-dim;
+    letter-spacing: 0.19em;
+  }
+
+  .h1-line {
+    @apply block font-sans text-[38px] font-normal text-ink;
+    line-height: 1.02;
+    letter-spacing: -1.6px;
+  }
+
+  .h1-serif {
+    @apply block font-display text-[42px] font-normal text-accent;
+    line-height: 1.02;
+    letter-spacing: -1px;
+  }
+
+  .h2-line {
+    @apply block font-sans text-[32px] font-normal text-ink;
+    line-height: 1.08;
+    letter-spacing: -1.3px;
+  }
+
+  .h2-serif {
+    @apply block font-display text-[35px] font-normal text-accent;
+    line-height: 1.08;
+    letter-spacing: -0.6px;
+  }
+
+  .body-text {
+    @apply text-[16px] text-ink-muted;
+    line-height: 1.65;
+  }
+
+  /* ---- shared shapes (§3) ---- */
+  .panel {
+    @apply rounded-card border border-line;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-pill border border-white/[0.13] bg-transparent px-[14px] py-[11px] text-[13px] font-medium text-ink-muted transition-colors duration-200;
+    min-height: 44px;
+  }
+
+  .chip:hover {
+    @apply border-white/25 text-ink;
+  }
+
+  .chip[aria-checked='true'] {
+    @apply border-accent bg-accent-wash text-accent-pale;
+  }
+
+  .chip-dot {
+    @apply h-[7px] w-[7px] shrink-0 rounded-pill bg-white/[0.22] transition-colors duration-200;
+  }
+
+  .chip[aria-checked='true'] .chip-dot {
+    @apply bg-accent;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-pill bg-accent px-7 text-[14px] font-medium text-ground transition-opacity duration-200;
+    min-height: 50px;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.88;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-pill border border-accent bg-accent-wash px-[18px] py-[10px] text-[13px] font-medium text-accent-pale transition-colors duration-200;
+  }
+
+  .btn-outline:hover {
+    @apply bg-accent-wash-strong;
+  }
+
+  .text-link {
+    @apply text-[13px] text-ink-muted underline decoration-line-strong underline-offset-4 transition-colors duration-200;
+  }
+
+  .text-link:hover {
+    @apply text-ink decoration-accent-deep;
+  }
+
+  .field {
+    @apply w-full rounded-field border border-line-strong bg-surface-3 px-[14px] text-[14px] text-ink placeholder:text-ink-fainter transition-colors duration-200;
+    min-height: 44px;
+  }
+
+  .field:hover,
+  .field:focus {
+    @apply border-accent-deep;
+  }
+}
+
+@layer utilities {
+  /* Preview cross-fade (§7) and edit reveal (§8.5). */
+  .fade-swap {
+    transition: opacity 100ms linear;
+  }
+
+  .reveal {
+    animation: reveal 220ms ease-out both;
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ---- desktop type scale ---- */
+@media (min-width: 768px) {
+  .h1-line {
+    font-size: 62px;
+    letter-spacing: -2.6px;
+  }
+  .h1-serif {
+    font-size: 68px;
+  }
+  .h2-line {
+    font-size: 44px;
+    letter-spacing: -1.8px;
+  }
+  .h2-serif {
+    font-size: 48px;
+  }
+}
+
+/* Chips only drop to their 9px padding once we are past touch sizes (§9, §10). */
+@media (min-width: 1024px) {
+  .chip {
+    min-height: 0;
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+}
+
+/* FAQ heading runs smaller, final CTA heading runs larger (§8.7, §8.8). */
+@media (min-width: 768px) {
+  .h2-faq .h2-line {
+    font-size: 38px;
+    letter-spacing: -1.5px;
+  }
+  .h2-faq .h2-serif {
+    font-size: 42px;
+  }
+  .h2-cta .h2-line {
+    font-size: 46px;
+  }
+  .h2-cta .h2-serif {
+    font-size: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
