@@ -7,6 +7,9 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   base: process.env.BASE_PATH ?? '/',
   plugins: [react()],
+  server: {
+    allowedHosts: ['sb-1n4jjiwqtthh.vercel.run'],
+  },
   build: {
     target: 'es2020',
     cssCodeSplit: false,
